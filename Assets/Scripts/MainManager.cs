@@ -24,7 +24,9 @@ public class MainManager : MonoBehaviour
     {
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
-        
+
+        ScoreText.text = MenuUI.userName + " score:" + m_Points.ToString();
+
         int[] pointCountArray = new [] {1,1,2,2,5,5};
         for (int i = 0; i < LineCount; ++i)
         {
@@ -60,12 +62,18 @@ public class MainManager : MonoBehaviour
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }
+
+
+        if(Input.GetKeyDown(KeyCode.Escape)) {
+            SceneManager.LoadScene(0); 
+        }
     }
 
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = $"Score : {m_Points}";
+        ScoreText.text = MenuUI.userName+" score:"+m_Points.ToString(); 
+        //ScoreText.text = $"Score : {m_Points}";
     }
 
     public void GameOver()
