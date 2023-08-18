@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class MenuUI : MonoBehaviour
 {
+
     public static string userName;
     [SerializeField] private TMP_InputField inputField;
 
@@ -18,12 +19,6 @@ public class MenuUI : MonoBehaviour
         {
             inputField.text = userName;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void StartGame()

@@ -10,7 +10,8 @@ public class MainManager : MonoBehaviour
     public int LineCount = 6;
     public Rigidbody Ball;
 
-    public Text ScoreText;
+    public Text scoreText;
+    public Text bestScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -25,7 +26,8 @@ public class MainManager : MonoBehaviour
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
 
-        ScoreText.text = MenuUI.userName + " score:" + m_Points.ToString();
+        scoreText.text = MenuUI.userName + " score:" + m_Points.ToString();
+        bestScoreText.text = "Best Score: "+MyPersistentJSON.GetNameFromFile()+":"+MyPersistentJSON.GetScoreFromFile();
 
         int[] pointCountArray = new [] {1,1,2,2,5,5};
         for (int i = 0; i < LineCount; ++i)
@@ -72,13 +74,18 @@ public class MainManager : MonoBehaviour
     void AddPoint(int point)
     {
         m_Points += point;
-        ScoreText.text = MenuUI.userName+" score:"+m_Points.ToString(); 
-        //ScoreText.text = $"Score : {m_Points}";
+        scoreText.text = MenuUI.userName+" score:"+m_Points.ToString(); 
+        //scoreText.text = $"Score : {m_Points}";
     }
 
     public void GameOver()
     {
         m_GameOver = true;
+        if(m_Points > MyPersistentJSON.GetScoreFromFile())
+        {
+            MyPersistentJSON.SaveUserScore(MenuUI.userName, m_Points);
+        }
+            
         GameOverText.SetActive(true);
     }
 }
